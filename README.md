@@ -1,6 +1,6 @@
 # GREAT COMMANDS
 
-Welcome to my curated collection of command-line utilities and Git commands. 
+Welcome to curated collection of command-line utilities and Git commands. 
 This repository provides tools to boost productivity, streamline workflows, and simplify command-line tasks.
 
 ## Contents
