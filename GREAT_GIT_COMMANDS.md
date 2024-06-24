@@ -27,6 +27,9 @@
 ⚙️ `git diff main origin/main`
 - Shows the differences between your local `main` branch and the remote `origin/main` branch.
 
+⚙️ `git show feature-branch:example.txt`
+- Show content of file from another branch
+
 ## Synchronization 
 ⚙️ `git reset --hard origin/main`
 - Resets your local `main` branch to match the remote `origin/main` branch.
