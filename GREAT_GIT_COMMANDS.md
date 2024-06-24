@@ -30,6 +30,9 @@
 ⚙️ `git show feature-branch:example.txt`
 - Show content of file from another branch
 
+⚙️ `git restore .`
+Revert all file modifications and restore the branch to its state at creation
+
 ## Synchronization 
 ⚙️ `git reset --hard origin/main`
 - Resets your local `main` branch to match the remote `origin/main` branch.
