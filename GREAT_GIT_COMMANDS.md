@@ -13,6 +13,9 @@
 ⚙️ `git reset @~3`
 - Resets the current branch to the 3 commit ago.
 
+⚙️ `git restore .`
+Revert all file modifications and restore the branch to its state at creation
+
 ## Show info
 ⚙️ `git log --pretty=oneline --abbrev-commit`
 * Displays the commit history in a concise, one-line format with abbreviated commit hashes.
@@ -29,9 +32,6 @@
 
 ⚙️ `git show feature-branch:example.txt`
 - Show content of file from another branch
-
-⚙️ `git restore .`
-Revert all file modifications and restore the branch to its state at creation
 
 ## Synchronization 
 ⚙️ `git reset --hard origin/main`
