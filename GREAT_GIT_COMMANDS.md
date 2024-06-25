@@ -48,7 +48,7 @@ Revert all file modifications and restore the branch to its state at creation
 ⚙️ `git config --list`
 - Displays a list of all the configured Git settings.
 
-⚙️ `git config --global pager.show batcat -l c --theme="ansi"`
+⚙️ `git config --global pager.show-file batcat -l c --theme="ansi"`
 - Show content of file with syntax highlight
 
 ⚙️ `git config --global alias.l "log --pretty=oneline --abbrev-commit"`
