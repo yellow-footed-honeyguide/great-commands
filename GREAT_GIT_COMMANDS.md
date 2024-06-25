@@ -14,7 +14,11 @@
 - Resets the current branch to the 3 commit ago.
 
 ⚙️ `git restore .`
-Revert all file modifications and restore the branch to its state at creation
+- Revert all file modifications and restore the branch to its state at creation
+
+⚙️ `git commit -a --amend --no-edit`
+- Add changes to files in the latest commit
+- Useful when you forget edit something before commit
 
 ## Show 
 ⚙️ `git log --pretty=oneline --abbrev-commit`
