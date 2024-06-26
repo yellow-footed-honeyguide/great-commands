@@ -55,7 +55,7 @@
 ⚙️ `git config --global pager.show-file batcat -l c --theme="ansi"`
 - Show content of file with syntax highlight
 
-⚙️ `git config --global alias.l "log --pretty=oneline --abbrev-commit"`
+⚙️ `git config --global alias.l "log --graph --format='format:%C(yellow)%h%C(reset) %s %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)'"`
 - Creates a global Git alias `l` for the command `git log --pretty=oneline --abbrev-commit`.
 - Allows you to use `git l` instead of typing the full command every time.
 
