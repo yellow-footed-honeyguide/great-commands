@@ -62,3 +62,6 @@
 ⚙️ `git config --global alias.a '!f() { git add . && git commit -m "$1" && git push origin main; }; f'`
 - Creates a global Git alias `a` that allows you to stage all changes, commit with a provided message, and push to the remote `main` branch with a single command.
 - Example usage: `git a "My commit message"`.
+
+⚙️ `git config --global alias.rdiff '!f() { git fetch && git diff --color=always --exit-code origin/$(git branch --show-current) | diff-so-fancy | less --tabs=4 -RFX; }; f'`
+- Show diff in user-friendly style between remote and local
