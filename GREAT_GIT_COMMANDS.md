@@ -37,6 +37,9 @@
 ⚙️ `git show feature-branch:example.txt`
 - Show content of file from another branch
 
+⚙️ `git restore --source 3873c2f Readme.md`
+- Restore the contents of specific file to match its state in specific commit
+
 ## Synchronization 
 ⚙️ `git reset --hard origin/main`
 - Resets your local `main` branch to match the remote `origin/main` branch.
