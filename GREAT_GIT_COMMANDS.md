@@ -20,6 +20,9 @@
 - Add changes to files in the latest commit
 - Useful when you forget edit something before commit
 
+⚙️ `git restore --source 3873c2f Readme.md`
+- Restore the contents of specific file to match its state in specific commit
+
 ## Show 
 ⚙️ `git log --pretty=oneline --abbrev-commit`
 * Displays the commit history in a concise, one-line format with abbreviated commit hashes.
@@ -37,8 +40,14 @@
 ⚙️ `git show feature-branch:example.txt`
 - Show content of file from another branch
 
-⚙️ `git restore --source 3873c2f Readme.md`
-- Restore the contents of specific file to match its state in specific commit
+⚙️ `git notes add -m "Important performance improvement" a1b2`
+- Add a note to the commit with hash a1b2
+
+⚙️ `git notes show 65f7`
+- Show the notes attached to the commit with hash 65f7
+
+⚙️ `git notes list`
+- List all notes in the repository
 
 ## Synchronization 
 ⚙️ `git reset --hard origin/main`
