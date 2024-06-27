@@ -1,11 +1,11 @@
 # User Information
 [user]
-    email = ''
-    name = ''
+    email = ""
+    name = ""
 
 # URL Rewrite for "your company" Git
 [url ""]
-    insteadof = ''
+    insteadof = ""
 
 # Color Settings
 [color]
