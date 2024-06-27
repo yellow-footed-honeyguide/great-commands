@@ -60,6 +60,18 @@
 ⚙️ `git switch -c perf/optimize-directory-switching`
 - Creates a new branch named `perf/optimize-directory-switching` and switches to it.
 
+⚙️ git worktree add <path> <branch>
+- Adds a new worktree at the specified path and checks out the specified branch. 
+
+⚙️ git worktree list
+- Lists all the worktrees associated with the repository.
+
+⚙️ git worktree lock ../crusial_work
+- Locks the specified worktree to prevent it from being pruned or deleted.
+
+⚙️ git worktree unlock ../crusial_work
+- Unlocks the specified worktree, allowing it to be pruned or deleted.
+
 ## Config settings
 ⚙️ `git config --list`
 - Displays a list of all the configured Git settings.
