@@ -1,11 +1,11 @@
 # User Information
 [user]
-    email = Johny_Jones@company.com
-    name = Johny Jones
+    email = ''
+    name = ''
 
 # URL Rewrite for "your company" Git
-[url "ssh://git@git.company.com/"]
-    insteadof = https://git.company.com/
+[url ""]
+    insteadof = ''
 
 # Color Settings
 [color]
