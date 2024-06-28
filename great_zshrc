@@ -1,0 +1,847 @@
+#
+#    __                                
+#   (  )                               
+# \ _\/_,'    HONEYGUIDE ZSH CONFIG    
+#--("))))))= -.._.-'-.._.-'-.._.-'-.._.
+#     \\   
+#
+#
+
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+# => Common Settings
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autoload -U colors && colors
+#PS1='%B%F{red}❯ %f%b' # for root
+PS1='%B%F{green}❯ %f%b'
+autoload -U promptinit
+promptinit
+
+setopt AUTO_CD
+setopt auto_cd
+setopt extended_glob
+setopt +o nomatch
+unsetopt CASE_GLOB
+
+autoload -Uz compinit
+compinit
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 
+
+# custom Right prompt
+#setopt PROMPT_SUBST PROMPT_CR PROMPT_SP
+#typeset -a no_rprompt_commands=(ls pwd e s d t nn)
+#zsh_last_command=""
+#preexec() { zsh_last_command="${1%% *}" }
+#precmd() {
+#    (( ${(@)~no_rprompt_commands[(Ie)$zsh_last_command]} )) && \
+#    RPROMPT='' || RPROMPT='%F{#04548a}%1~%f'
+#}
+
+
+
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+# => CUSTOM HISTORY
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+HISTFILE=~/.histfile
+HISTSIZE=3000
+SAVEHIST=3000
+
+setopt HIST_IGNORE_ALL_DUPS 
+setopt INC_APPEND_HISTORY  
+setopt EXTENDED_HISTORY   
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_FIND_NO_DUPS    
+setopt HIST_IGNORE_SPACE   
+setopt SHARE_HISTORY      
+HISTORY_IGNORE='(vh|s|e|vz|n|d)' 
+
+# custom history file
+function vh {
+    temp_file=$(mktemp /tmp/histfile.XXXXXX)
+    temp_view_file=$(mktemp /tmp/histfile_view.XXXXXX)
+
+    awk -F':' '
+    /^[0-9]{2}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}/ { print; next }
+    {
+        cmd=$3
+        sub(/^0;/, "", cmd)
+        date=strftime("%y-%m-%d %H:%M", $2)
+        print date "| " cmd
+    }' ~/.histfile > "$temp_file" && mv "$temp_file" "$temp_view_file"
+
+    vim "$temp_view_file"
+    rm "$temp_view_file"
+}
+
+
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+# => ADDITIONAL COMMON SETTINGS
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+xmodmap -e "keysym Alt_L control = Escape Alt_L"
+setxkbmap -option ctrl:nocaps
+
+bindkey '\C-p' kill-whole-line
+bindkey '\C-r' end-of-line
+bindkey '\C-f' forward-word
+bindkey '\C-w' backward-word 
+bindkey '\e[24~' kill-whole-line
+bindkey '\C-f' end-of-line
+bindkey '\C-w' beginning-of-line
+bindkey '\C-r' backward-word 
+bindkey '\C-p' history-search-backward
+
+bindkey '\C-a' backward-char
+bindkey '\C-r' forward-char
+bindkey '\e[24~' kill-whole-line
+bindkey "^[[12~" backward-word
+bindkey "^[[13~" forward-word
+bindkey "^[[11~" delete-word
+bindkey "^[[14~" backward-delete-word
+bindkey "^[[21~" beginning-of-line
+bindkey "^[[23~" end-of-line
+bindkey "^[[20~" undo 
+
+bindkey "^[[19~" clear-screen
+bindkey "\C-f" down-line-or-search
+bindkey "\C-y" accept-line
+bindkey "\C-s" backward-char
+
+
+alias -s mp4='mplayer -af scaletempo -really-quiet -vo xv -pausing 2'
+alias -s mkv='mplayer -af scaletempo -really-quiet -vo xv -pausing 2'
+alias -s mp3='mplayer -af scaletempo -really-quiet -vo xv -pausing 2'
+alias -s avi='mplayer -af scaletempo -really-quiet -vo xv -pausing 2'
+alias -s grec='mplayer -af scaletempo -really-quiet -vo xv -pausing 2'
+alias -s mov='mplayer -af scaletempo -really-quiet -vo xv -pausing 2'
+alias -s pdf='evince'
+alias -s djvu='evince'
+alias -s txt='vim'
+alias -s odp='libreoffice'
+alias -s pptx='libreoffice'
+
+export EDITOR=vim
+export VISUAL=vim
+export PATH=$PATH:/home/honeyguide/Python_scripts/
+stty -ixon       # disable control s
+xset s off -dpms # never screen turn off
+
+
+
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+# => Moving and Basic System Commands
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+alias ls='echo -e "\e[3m`pwd`\e[0m" && ls -A -F --group-directories-first --sort=extension'
+alias l='ls | nl'
+alias cal='ncal'
+
+alias s='nooks --save-current-dir'
+#alias s='echo `pwd` > ~/.i3/.current_dir.txt'
+function e() {
+   if [[ -n "$1" ]]; then
+       nooks "$1"
+   else
+       nooks
+   fi
+}
+#alias e='\cd `\cat ~/.i3/.current_dir.txt`; ls'
+
+alias n='\cd ../; ls;'
+#alias nn='\cd ../../; ls;'
+alias nn='\cd -; ls;'
+
+function t {
+  if [[ $1 != '' && $1 != '/' && $1 != */ ]]; then
+      cd $1 && ls
+  elif [[ $1 == '/' ]]; then
+    \cd / && ls
+  elif [[ $1 == */ ]]; then
+    \cd $1 && ls
+  elif [[ $1 == '-' ]]; then
+    \cd -
+  else
+    ls
+  fi
+}
+
+alias s1='systemctl poweroff'
+alias s2='systemctl suspend'
+alias s3='sudo reboot'
+function sus {
+    #echo "systemctl suspend after $1 minute" && sudo sleep $1m && sudo systemctl suspend
+    echo 'disabled' | sudo tee /sys/bus/usb/devices/usb1/1-5/power/wakeup;
+    sudo systemctl suspend
+}
+
+
+
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+# => Basic Aliases
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+alias vr='vim ~/Python_scripts/rp'
+alias vv='vim ~/.vimrc'
+alias vz='vim ~/.zshrc'
+alias vi3='vim /home/honeyguide/.i3/config'
+alias vx='vim ~/.Xresources'
+alias vw='sudo vim /etc/wpa_supplicant/wpa_supplicant.conf'
+alias vd='vim /home/honeyguide/Desktop/LISTS/derevya'
+alias vwpa='sudo vim /etc/wpa_supplicant/wpa_supplicant.conf'
+alias ii='i3-msg reload'
+alias xx='xrdb /home/honeyguide/.Xresources'
+alias zz='source ~/.zshrc'
+
+alias cp='cp -r'
+alias h='\cd /home/honeyguide/ && ls'
+alias d='\cd /home/honeyguide/Desktop; ls'
+alias dow="\cd /home/honeyguide/Downloads/ && ls|nl"
+alias pic="\cd /home/honeyguide/Pictures/ && ls|nl"
+alias lis='/home/honeyguide/Desktop/LISTS && ls'
+alias she='vim /home/honeyguide/Desktop/LISTS/shell_home_commands_home'
+alias pyt='\cd /home/honeyguide/Python_scripts/ && ls'
+alias arc="\cd /mnt/archive && ls"
+alias ath='\cd /home/honeyguide/Desktop/Athenaeum && ls'
+
+alias f='firefox &; disown;exit'
+alias pale='palemoon &; disown;exit'
+alias g='google-chrome &; disown;exit'
+alias g2='chromium &; disown;exit'
+alias qb='qbittorrent &; disown;exit'
+alias slimjet='flashpeak-slimjet &; disown;exit'
+
+alias lsd='ls -d */'
+alias lsff='echo "\nFiles:"; \ls -p | grep -v /|column; echo "\nDirectories-> "; tree -d -L 2|column; echo "\n";'
+
+alias to='\cd /mnt/hddtb; ls'
+alias to1='\cd ~/Desktop/Labour && ls'
+alias to2='\cd ~/Desktop/Leisure && ls'
+
+alias size='du -sh'
+alias gsm='gnome-system-monitor &; disown;exit'
+alias tm='xfce4-taskmanager &; disown;exit'
+
+function fp {
+  local file_path="$1"
+  if [[ -e "$file_path" ]]; then
+    local full_path=$(readlink -f "$file_path")
+    echo " " 
+    echo "$full_path"
+    echo " " 
+  else
+    echo "File does not exist"
+  fi  
+}
+
+alias ht='htop --sort-key=PERCENT_CPU'
+alias rm='sudo rm -R'
+alias nc='ncal -M -3'
+alias y='yes'
+
+alias fss='sudo lsblk --output MODEL,TYPE,NAME,SIZE,MOUNTPOINT,FSTYPE'
+alias rec='arecord -vv -fdat'
+alias ff='ffmpeg -hide_banner -i'
+alias tl='tldr'
+alias i='cd `\cat ~/Desktop/.for_cd`; ls'
+#alias cw='watch -n.99 "echo 'Temp'; sensors 2> /dev/null | grep Core; echo ''; echo 'Freq'; cat /proc/cpuinfo | grep \"^[c]pu MHz\""'
+alias cw='viddy -n 1 -d "echo 'Temp'; sensors 2> /dev/null | grep Core; echo ''; echo 'Freq'; cat /proc/cpuinfo | grep \"^[c]pu MHz\""'
+alias vm='virt-manager &; disown;exit'
+alias r='ranger ./'
+alias homeserv="curl ipinfo.io/ip; echo ''; hostname -I | cut -d' ' -f1; echo ''; python3 -m http.server 8095" # homeserv
+
+alias viber='/opt/viber/Viber &; disown;exit'
+alias my_prompts='vim /home/honeyguide/Desktop/Labour/prompt_engineering/my_variables.txt'
+
+alias feh_bg='feh --bg-scale /home/honeyguide/Pictures/Back/back0.png'
+
+#alias cat='batcat --theme="Coldark-Cold"'
+alias bt='urxvt -e btop &; disown; exit'
+alias iotop='urxvt -bg "[80]#000000" -fg white -tr -sh 50 -e sudo iotop --only --processes &; disown; exit'
+
+alias qp='pwd | xclip -selection primary'
+
+alias lazydocker='urxvt -bg "[80]#000000" -fg white -tr -sh 20 -e lazydocker &; disown; exit'
+
+alias b='mpr /home/honeyguide/Desktop/Athenaeum/NKJV.mp3'
+
+alias lop='\cd /mnt/archive/audiobooks && ls && echo '' && mpr lopuhin_bibleyskie_istorii.mp3 && ls'
+
+alias nik='mpr /mnt/archive/audiobooks/diff_audio/nikolay2.mp3'
+
+alias c='\cd /home/honeyguide/Desktop/Labour && ls'
+alias c2='\cd /home/honeyguide/Desktop/Labour/podgotovka_k_dokladam && ls'
+
+
+
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+# => Large functions
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+# Install packet
+function rpi {
+    if [ -z "$1" ]; then
+        echo "Please use rpi with a package name as an argument."
+    else
+        sudo apt-get install -y $1 && echo '' && apt-file list $1 | sed 's/$1: //'
+    fi
+}
+
+# Remove packet
+function rpr {
+   sudo apt-get purge -y $1 && sudo apt autoremove
+}
+
+# List packages that ready to upgrade
+function rpupdl {
+   sudo apt update;
+   sudo apt list --upgradable | nl;
+}
+
+# Full upgrade
+function rpflupgr() {
+    sudo apt update
+    sudo apt upgrade -y
+    sudo apt full-upgrade -y
+    sudo apt autoremove -y
+    sudo apt autoclean
+}
+
+# List content of package
+function rpl {
+  echo $1;
+  apt 2>/dev/null show $1 | grep 'Description:' | sed 's/Description: //';
+  echo '';
+  apt-file list $1 | sed "s/$1: //"
+
+}
+
+# Search packages with specific substring
+function rps {
+  pkg=$1;
+  aptitude search %s "$pkg" | sed 's/  p  //' | sed 's/i A //' | sed 's/p  //' | sed 's/i  //' | sed 's/v  //' | awk -F' - ' '{printf "%-20s # %s\n", $1, $2}';
+  echo "\033[1mFound packages in Rep: $(aptitude search "$pkg" | wc -l)\033[0m"
+
+}
+
+# Search packages with specific substring locally
+function rpsl {
+  apt list --installed 2>/dev/null | rg "$1" | cut -d'/' -f1 | nl
+}
+
+# Search packages with specific substring
+rpst () {
+  pkg=$1;
+  aptitude search "?exact-name($pkg)" | sed 's/  p  //' | sed 's/i A //' | sed 's/p  //' | sed 's/i  //' | sed 's/v  //' | awk -F' - ' '{printf "%-20s # %s\n", $1, $2}'
+}
+
+# List of snap packages
+rpsnap () {
+  snap list --all | awk 'NR>1 {print $1, $2}' | column -t | nl
+}
+
+
+# Package statistics
+function rpstat {
+  echo Packets installed: `dpkg -l | wc -l` \(Total avail: `apt-cache search . | wc -l`\);
+  echo Libs installed: `dpkg-query -l | grep '^ii' | grep 'lib' | wc -l`;
+  echo Python modules: `pip3 list | wc -l`;
+  echo Services run: `systemctl list-units --type=service --state=running | grep -c servic`;
+  echo Installed by user: `apt-mark showmanual | wc -l`
+  echo Snap: `snap list | wc -l | awk '{print $1-1}'`
+}
+
+# Find the package that provides a given command or file
+function rpw {
+      echo Pack: $((dpkg 2>/dev/null -S /bin/$1 || dpkg 2>/dev/null -S /usr/bin/$1 || dpkg 2>/dev/null -S `readlink 2>/dev/null -f \`which $1\`` || dpkg 2>/dev/null -S /sbin/$1) || dpkg 2>/dev/null -S $1 || echo 'None' | sed 's/:.*$//')
+}
+
+# Show package dependencies 
+function rpdn {
+    #pkg=$1
+    #echo "\033[1m$pkg\033[0m"
+
+    pkg=$1
+    description=$(apt-cache 2>/dev/null show $1 | grep 'Description-en:' | sed 's/Description-en: //')
+    printf "\033[1m%-19s # %s\033[0m\n" "$pkg" "$description"
+
+    apt-cache depends "$pkg" | \
+        grep ' Depends' |
+        sed 's/ Depends: //' | \
+        while read -r dep; do
+            desc=$(apt-cache 2>/dev/null show "$dep" | \
+            grep 'Description-en:' | \
+            head -1 | \
+            sed 's/Description-en: //')
+            printf "  %-17s # %s\n" "$dep" "$desc"
+        done
+    echo "\033[1mTotal Number of dependencies: $(apt-cache depends "$pkg" | grep ' Depends' | wc -l)\033[0m"
+}
+
+# List installed packages dependent on another
+function rpdr {
+  pkg=$1
+
+  description=$(apt-cache 2>/dev/null show $1 | grep 'Description-en:' | sed 's/Description-en: //')
+  printf "\033[1m%-24s # %s\033[0m\n" "$pkg" "$description"
+
+  aptitude search "~i~D$pkg" | sed 's/A //' | awk -F' - ' '{gsub(/^i\s*/,"",$1); printf "%-24s # %s\n", $1, $2}'
+
+  dependency_count=$(aptitude search "~i~D$pkg" | wc -l)
+  echo "\033[1mDependency for: $dependency_count packages\033[0m"
+}
+
+# List repo packages depending on another
+function rpdrall {
+    pkg=$1
+    description=$(apt-cache 2>/dev/null show $1 | grep 'Description-en:' | sed 's/Description-en: //')
+    printf "\033[1m%-19s # %s\033[0m\n" "$pkg" "$description"
+
+    apt-cache rdepends "$pkg" | \
+        while read -r dep; do
+            desc=$(apt-cache 2>/dev/null show "$dep" | \
+            grep 'Description-en:' | \
+            head -1 | \
+            sed 's/Description-en: //')
+            printf "  %-17s # %s\n" "$dep" "$desc"
+        done
+    echo "\033[1mDependency for: $(apt-cache rdepends "$pkg" | wc -l)\033[0m"
+}
+
+# Full info about package
+function rpinfo() {
+  # check if the package name argument is provided
+  if [[ -z "$1" ]]; then
+    echo "Please use rpinfo with a package name as an argument"
+    return 1
+  fi
+
+  local package="$1"
+  local installed_status
+  local description
+
+  # check if the package is installed
+  if dpkg-query -W -f='${Status}' "$package" 2>/dev/null | grep -q "install ok installed"; then
+    installed_status="installed: YES"
+  else
+    installed_status="installed: NO"
+  fi
+
+  # get the package description
+  description=$(apt show "$package" 2>/dev/null | sed -n 's/Description: //p')
+
+  # display package information
+  echo "\\033[1m$package ($installed_status) - $description\\033[0m"
+  echo ''
+
+  # display detailed package information
+  #apt show "$package"
+  apt show $package | awk -F': ' '
+  BEGIN {
+    BOLD="\033[1m";
+    NORMAL="\033[0m";
+  }
+  {
+  if ($1 == "Package" || $1 == "Version" || $1 == "Priority" || $1 == "Section" || $1 == "Origin" || $1 == "Maintainer" || $1 == "Original-Maintainer" || $1 == "Bugs" || $1 == "Installed-Size" || $1 == "Provides" || $1 == "Suggests" || $1 == "Homepage" || $1 == "Task" || $1 == "Download-Size" || $1 == "APT-Manual-Installed" || $1 == "APT-Sources" || $1 == "Description") {
+    print BOLD $1 NORMAL ": " $2;
+  } 
+  else if ($1 == "Depends") {
+    split($2, deps, ", ");
+    printf(BOLD $1 NORMAL ":\n");
+    for (dep in deps) {
+      printf("\t\t" deps[dep] "\n");
+     }
+  }
+  }'
+  echo ''
+
+  # list package files
+  apt-file list "$package" | sed "s/$package: //"
+}
+
+# Get info about command or package
+function wh {
+  if [[ `whence -w $1` == *alias* ]]; then
+    echo Type: Alias
+    echo Comm: $(which $1 | sed 's/.*aliased to //')
+  elif [[ `whence -w $1` == *builtin* ]]; then
+    echo 'Type: Built-in\n';
+    #/usr/bin/$1 2>/dev/null --help || cat /usr/share/zsh/help/$1
+    #tldr 2>/dev/null $1 || cat /usr/share/zsh/help/$1
+    cat /usr/share/zsh/help/$1
+  elif [[ `whence -w $1` == *function* ]]; then
+    echo 'Type: Function';
+    which $1;
+  elif [[ `whence -w $1` == *command* ]]; then
+    echo Link: `which $1`;
+    echo Base: `readlink 2>/dev/null -f \`which $1\``;
+
+    base=`readlink 2>/dev/null -f \`which $1\``;
+    result=$(file "$base" | grep -o "ELF .* executable" | awk '{$NF=""; print $0}')
+    if [ -z "$result" ]; then
+      echo Type: $(file "$base" | sed 's/[^:]*: //')
+      echo Pack: $((dpkg 2>/dev/null -S /bin/$1 || dpkg 2>/dev/null -S /usr/bin/$1 || dpkg 2>/dev/null -S `readlink 2>/dev/null -f \`which $1\`` || dpkg 2>/dev/null -S /sbin/$1) | sed 's/:.*$//' )
+    else
+    echo Type: "$result"
+    echo Pack: $((dpkg 2>/dev/null -S /bin/$1 || dpkg 2>/dev/null -S /usr/bin/$1 || dpkg 2>/dev/null -S `readlink 2>/dev/null -f \`which $1\`` || dpkg 2>/dev/null -S /sbin/$1) | sed 's/:.*$//' )
+    fi
+
+    echo Size: $(du -sh `readlink 2>/dev/null -f \`which $1\`` | awk '{print $1}')
+  else
+    #result=`dpkg 2>/dev/null -L $1 | grep -E '*\.so*'`;
+    #result=`dpkg 2>/dev/null -L $1 | grep -E 'x86_64-linux-gnu.*\.so'`;
+    result=`dpkg 2>/dev/null -L $1 | grep -E 'lib.*\.so'`;
+    if [ -z "$result" ]; then
+      if result=$(dpkg 2>/dev/null -L $1); then
+        echo "Type: Program packet"
+        echo "Desc: `apt-cache 2>/dev/null show $1 | grep 'Description-en:' | head -1 | sed 's/Description-en: //'`";
+        #echo "$result" | nl
+      else
+        echo "This entity doesn't exist"
+      fi
+    else
+      echo "Type: Library packet"
+      echo "Desc: `apt-cache 2>/dev/null show $1 | grep 'Description-en:' | head -1 | sed 's/Description-en: //'`\n";
+      echo -n "Cont: " && dpkg 2>/dev/null -L $1 | grep -E '*\.so*' | awk 'NR==1{print;next}{printf "      %s\n", $0}'
+    fi
+
+  fi
+}
+
+
+
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+# => Autocompletion functions
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+_wh() {
+    local -a completions
+    completions+=(${(k)aliases})
+    completions+=(${(k)builtins})
+    completions+=(${(k)functions})
+    completions+=(${(k)commands})
+    completions+=($(dpkg -l | awk '{print $2}' | tail -n +6))
+    compadd -a completions
+}
+
+compdef _wh wh
+
+
+_rpdn() { 
+   compadd $(dpkg -l | awk '{print $2}' | tail -n +6)
+} 
+compdef _rpdn rpdn
+
+_rpdr() { 
+   compadd $(dpkg -l | awk '{print $2}' | tail -n +6)
+} 
+compdef _rpdr rpdr
+
+_rpdrall() { 
+   compadd $(dpkg -l | awk '{print $2}' | tail -n +6)
+} 
+compdef _rpdrall rpdrall
+
+_rps() { 
+   compadd $(dpkg -l | awk '{print $2}' | tail -n +6)
+} 
+compdef _rps rps
+
+_rpl() { 
+   compadd $(dpkg -l | awk '{print $2}' | tail -n +6)
+} 
+compdef _rpl rpl
+
+_rpi() { 
+   compadd $(dpkg -l | awk '{print $2}' | tail -n +6)
+} 
+compdef _rpi rpi
+
+_rpr() { 
+   compadd $(dpkg -l | awk '{print $2}' | tail -n +6)
+} 
+compdef _rpr rpr
+
+_cht() { 
+   compadd $(dpkg -l | awk '{print $2}' | tail -n +6)
+} 
+compdef _cht cht
+
+_t() { 
+  _files -g '*/'
+} 
+compdef _t t
+
+_rpinfo() { 
+   compadd $(dpkg -l | awk '{print $2}' | tail -n +6)
+} 
+compdef _rpinfo rpinfo
+
+
+
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+# => Small functions
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+alias un='unpak'
+#function un {
+#     unzip *$@* 2> /dev/null || tar -xf *$@* || 7z x *$@* && ls 
+#}
+#function un() {
+#  local file="$1"
+#  
+#  if [[ -z "$file" ]]; then
+#    echo "Usage: un <file>"
+#    return 1
+#  fi
+#  
+#  case "$file" in
+#    *.deb)
+#      dpkg-deb -x $file "$(basename $file .deb)"
+#      ;;
+#    *.rpm)
+#      rpm2cpio "$file" | cpio -idmv
+#      ;;
+#    *.zip)
+#      unzip -o "$file"
+#      ;;
+#    *.xz)
+#      xz -d "$file"
+#      ;;
+#    *.gz)
+#      gunzip "$file"
+#      ;;
+#    *.tar|*.tar.gz|*.tgz|*.tar.bz2|*.tbz2|*.tar.xz|*.txz)
+#      tar -xf "$file"
+#      ;;
+#    *.7z)
+#      7z x "$file"
+#      ;;
+#    *)
+#      echo "Unsupported file format: $file"
+#      return 1
+#      ;;
+#  esac
+#  
+#  if [[ $? -eq 0 ]]; then
+#    ls
+#  else
+#    echo "Extraction failed for $file"
+#    return 1
+#  fi
+#}
+
+function mem {
+   viddy "echo  'Private  +  Shared    =  RAM used    Program'; sudo ps_mem | tac | head -n -1"
+}
+
+function fbig {
+    find ./ -xdev -type f -size +$@G | sed -e 's/"/"\\""/g' -e 's/.*/"&"/' |
+    xargs du -sh | sort -rn | sed -e 's/.*\.$/Files not found/g'
+}
+
+function flate {
+  ls -Art | tail -n $@ |
+  sed -e 's/"/"\\""/g' -e 's/.*/"&"/' |
+  xargs stat -c "%y %n" | sort -n
+}
+
+function rmbut {
+     mkdir ../.rmbut &&
+     mv $1 ../.rmbut &&
+     rm * &&
+     mv ../.rmbut/$1 ./ &&
+     rm ../.rmbut
+}
+
+function gre {
+    grep -nir $1 * | sed '/Binary/d' | nl 
+}
+
+function loc {
+    fdfind "$1" . 2>&1 | grep -v "Permission denied" | nl
+}
+
+function rpfb() {
+  if [[ -z "$1" ]]; then
+    echo "Use argument"
+    return 1
+  fi
+
+  # Shared Libraries
+  echo "\033[1mShared Libraries:\033[0m"
+  if ! fdfind --type f --regex "$1(-\\d+\\.\\d+)?\\.so(\\.\[0-9\]+)?" /usr/lib /lib 2> /dev/null | grep -q .; then
+    echo "Nothing found"
+  else
+    fdfind --type f --regex "$1(-\\d+\\.\\d+)?\\.so(\\.\[0-9\]+)?" /usr/lib /lib 2> /dev/null
+  fi
+
+  echo ""
+
+  # Executables
+  echo "\033[1mExecutables:\033[0m"
+  if ! fdfind --type executable --glob "*$1*" -E /snap -E /var -E /usr/lib -E /usr/lib32 -E "*lib*" / 2>/dev/null | nl | grep -q .; then
+    echo "Nothing found"
+  else
+    fdfind --type executable --glob "*$1*" -E /snap -E /var -E /usr/lib -E /usr/lib32 -E "*lib*" / 2>/dev/null | nl
+  fi
+}
+
+
+function mir {
+  img2pdf * --output slideshow.pdf && evince slideshow.pdf && rm ./slideshow.pdf
+}
+
+function ca {
+  \cat *.mp3  | ffmpeg  -i pipe: -c:a copy -c:v copy $1 && mv $1 .. && cd .. && ls
+}
+
+di () {
+   echo "\033[1m`file ./$1`\033[0m" && udevadm info -a --name ./$1 | sed '/""/d' | sed -E -e '/Udevadm|walks|found|rule|single/d' | sed '/looking/d' | sed '/^$/d' | grep -E 'KERNEL|SUBSYSTEM|SUBSYSTEMS|DRIVERS|interface|vendor|device|idVendor|idProduct|manufacturer|product|name|phys|path|speed|model|firmware'
+}
+
+function cht {
+    /opt/cht.sh $1 | sed 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g' > ~/.cheat/temp_output_cht_sh && vim ~/.cheat/temp_output_cht_sh && clear && pwd
+}
+
+function gc {
+   gcc $1 && ./a.out
+}
+
+
+function na {
+    filename=$1;
+    filename="${filename%.s}";
+    nasm -f elf64 -o $filename.o $filename.s && ld -o $filename $filename.o && ./$filename && rm ./*.o
+}
+
+function di() {
+    diff -Nur "$1" "$2" | diff-so-fancy
+}
+
+
+
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+# => Systemd functions
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+rpservs () {
+  # STEP 1. List running services using systemctl and format the output
+  systemctl list-units --type=service --state=running --no-pager | grep service | sed 's/loaded active running//g' | \
+  awk '{print "\n\033[1m" NR " | " $1;
+
+  # STEP 2.  Extract and display the Description of the service
+  system("systemctl show -p Description " $1 " | \
+  sed \"s/Description=//\" | \
+  awk \"{print \\\"\033[0mDesc: \\\" \\$0}\"");
+
+  # STEP 3. Extract and display the ExecStart (binary path) of the service
+  system("systemctl cat " $1 " | \
+  grep -E \"^ExecStart=\" | \
+  sed \"s/ExecStart=//\" | \
+  awk \"{gsub(/\\\\.\\\\//, \\\" \\\"); print \\\"Exec: \\\" \\$0}\"");
+
+  # STEP 4. Extract and display the actual binary file path (BinA) using readlink -f
+  system("systemctl cat " $1 " | \
+  grep -E \"^ExecStart=\" | \
+  sed \"s/ExecStart=//\" | \
+  awk \"{gsub(/\\\\.\\\\//, \\\" \\\"); system(\\\"readlink 2>/dev/null -f \\\" \\$1)}\" | \
+  awk \"{print \\\"BinA: \\\" \\$0}\"");
+
+  # STEP 5. Extract the binary file size (Size) of the service
+  system("systemctl cat " $1 " | \
+  grep -E \"^ExecStart=\" | \
+  sed \"s/ExecStart=//\" | \
+  awk \"{gsub(/\\\\.\\\\//, \\\" \\\"); system(\\\"du 2>/dev/null -sh \\\" \\$1)}\" | \
+  awk \"{print \\\"Size: \\\" \\$1}\"");
+
+  # STEP 6. Extract and display the startup time of the service using systemd-analyze blame
+  # system("systemd-analyze blame | grep " $1 " | \
+  # awk \"{print \\\"Time: \\\" \\$1}\"");
+
+  # STEP 7. Extract and display the config file path (FragmentPath) of the service
+  system("systemctl show " $1 " -p FragmentPath | \
+  sed \"s/FragmentPath=//\" | \
+  awk \"{print \\\"Conf: \\\" \\$0}\"");}'
+}
+
+rpblame() {
+  systemd-analyze blame  --no-pager | nl
+}
+
+
+
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+# => Python things
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+alias py='python3'
+alias spu='sudo python3 -m pip install --upgrade'
+alias spr='sudo python3 -m pip uninstall'
+alias spsh='sudo python3 -m pip show'
+alias spf='sudo python3 -m pip freeze | nl'
+
+function spi { 
+  sudo python3 -m pip install $1 --break-system-packages 
+}
+
+function spv {
+  sudo python3 -m pip install  $1==
+}
+
+
+
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+# => Mplayer things
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+alias mp="mplayer -af scaletempo -really-quiet -vo xv -pausing 2"
+alias mptime="mplayer -af scaletempo -really-quiet -vo xv -pausing 2 -ss"
+alias mpv="mplayer -af scaletempo -really-quiet -vo xv -pausing 2 -ss 00:00:44"
+alias mpvg="mplayer -af scaletempo -really-quiet -vo xv -pausing 2 -ss 01:42:45"
+alias mpvh="mplayer -af scaletempo -really-quiet -vo xv -pausing 2 -ss 00:03:45"
+alias mps='mplayer -af scaletempo -vo xv -pausing 2 -shuffle * 2>/dev/null  | grep Playing'
+function mpr {
+ echo '' && mprr $1 && echo '' && ls
+}
+function mprs {
+ echo '' && mprr -slave -input file=/tmp/mplayer-control $1 && echo '' && ls
+}
+
+
+
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+# => Misc
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+: <<COMMENT
+This is examle of multi-lines comments
+COMMENT
+
+# NEW
+
+alias md="mdflash"
+
+
+
+# Function to extract tags from ~/.nooks file
+_nooks_tags() {
+  local -a tags
+  tags=($(awk '{print $1}' ~/.nooks))
+  _describe 'tag' tags
+}
+
+# Autocompletion function for nooks
+nookscompletion() {
+  local state
+  local -a options
+  options=(
+    '-s[Save the current directory with an optional NAME (default: "default")]'
+    '--save[Save the current directory with an optional NAME (default: "default")]'
+    '-a[Show all saved directories]'
+    '--all[Show all saved directories]'
+    '-h[Display help and exit]'
+    '--help[Display help and exit]'
+    '-q[Quiet mode]'
+    '--quiet[Quiet mode]'
+  )
+
+  _arguments -s -C \
+    "$options[@]" \
+    "*:: :_nooks_tags" \
+    && return 0
+}
+
+compdef nookscompletion nooks
+
+
+
+
