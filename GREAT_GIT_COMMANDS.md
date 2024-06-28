@@ -129,11 +129,11 @@
 ┣ 📁 api-docs<br>
 ┗ 📁 user-guides<br>
 
-  ⚙️ `git clone --no-checkout https://github.com/TechCorp/monorepo.git`
-  ⚙️ `cd monorepo`
-  ⚙️ `git sparse-checkout init --cone`
-  ⚙️ `git sparse-checkout set frontend`
-  ⚙️ `git checkout main`
+  ⚙️ `git clone --no-checkout https://github.com/TechCorp/monorepo.git`<br>
+  ⚙️ `cd monorepo`<br>
+  ⚙️ `git sparse-checkout init --cone`<br>
+  ⚙️ `git sparse-checkout set frontend`<br>
+  ⚙️ `git checkout main`<br>
 
 
 ### Partial clone
@@ -142,7 +142,7 @@
 
 
 ### Filter-branch
-  ⚙️ `git filter-branch --tree-filter 'rm -f passwords.txt' HEAD`
+  ⚙️ `git filter-branch --tree-filter 'rm -f passwords.txt' HEAD`<br>
   ⚙️ `git filter-branch --tree-filter 'rm -f sensitive_file.txt' HEAD`
 
 
