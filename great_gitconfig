@@ -30,19 +30,14 @@
 
 # Pager Settings
 [pager]
-    # Use batcat for showing files with syntax highlighting
-    show-file = batcat -l c --theme="ansi"
-
     # Use diff-so-fancy for diff and show commands
     diff = diff-so-fancy | less --tabs=4 -RFX
     show = diff-so-fancy | less --tabs=4 -RFX
 
-
 # Useful Aliases
 [alias]
-
-    b = branch    # Shorthand for branch
-    s = status -s # Compact status output
+    # Compact status output
+    s = status -s
 
     # Quick add and commit
     a = "!f() { git add . && git commit -m \"$1\"; }; f"
@@ -55,10 +50,14 @@
 
 
 [alias]
+    # Use batcat for showing files with syntax highlighting
+    # Note: Requires batcat to be installed
+    show-file = "!f() { git show \"$1\" | batcat -l c --theme=\"ansi\"; }; f"
+
+[alias]
     # Search for a pattern across all commits in the repository
     # Usage: git grep-all <pattern>
     # Example: git grep-all "TODO"
-
     grep-all = "!f() { \
         git grep \"$1\" $(git rev-list --all) | \
         awk -F: '{ \
@@ -73,12 +72,6 @@
     #
     # If no branch name is provided, it compares with the current branch.
     # This alias fetches the latest changes and shows a colorized, formatted diff.
-    #
-    # Features:
-    # - Fetches latest remote changes before diffing
-    # - Uses diff-so-fancy for improved readability
-    # - Handles non-existent remote branches gracefully
-    # - Provides informative error messages
     #
     # Example: git rdiff feature-branch
     #
@@ -122,3 +115,13 @@
         \
         main \"$@\"; \
     }; f"
+
+
+[alias]
+    # Custom branch display with sorting and formatting
+    b = !git branch --sort=-committerdate --format='\
+%(if:equals=*)%(HEAD)%(then)%(color:green)*%(else) %(end)\
+%(color:cyan)%(align:15,left)%(refname:short)%(end) \
+%(color:yellow)%(committerdate:relative)%(color:reset) \
+%(if)%(worktreepath)%(then)%(color:magenta)[WT]%(color:reset)%(end) \
+%(if)%(upstream)%(then)%(color:blue)[%(upstream:short)]%(color:reset)%(end)'
