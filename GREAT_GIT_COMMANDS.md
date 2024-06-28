@@ -117,17 +117,17 @@
   https://android.googlesource.com/
   ⚙️ `git submodule add https://github.com/example/library.git`
 
-📁 TechCorp
-┣ 📁 backend
-┃ ┣ 📁 api
-┃ ┣ 📁 services
-┃ ┗ 📁 database
-┣ 📁 frontend
-┃ ┣ 📁 web
-┃ ┗ 📁 mobile
-┗ 📁 docs
-  ┣ 📁 api-docs
-  ┗ 📁 user-guides
+📁 TechCorp<br>
+┣ 📁 backend<br>
+┃ ┣ 📁 api<br>
+┃ ┣ 📁 services<br>
+┃ ┗ 📁 database<br>
+┣ 📁 frontend<br>
+┃ ┣ 📁 web<br>
+┃ ┗ 📁 mobile<br>
+┗ 📁 docs<br>
+┣ 📁 api-docs<br>
+┗ 📁 user-guides<br>
 
   ⚙️ `git clone --no-checkout https://github.com/TechCorp/monorepo.git`
   ⚙️ `cd monorepo`
