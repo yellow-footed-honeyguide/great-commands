@@ -121,7 +121,6 @@
   TechCorp/
 
 ├── backend/
-
 │   ├── api/
 
 │   ├── services/
