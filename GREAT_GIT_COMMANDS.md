@@ -110,10 +110,10 @@
 - Useful for reviewing your bisect steps
 
 ## Large projects
-- Maintenance
+### Maintenance
   ⚙️ `git maintenance run --auto`
 
-- Submodule
+### Submodule
   https://android.googlesource.com/
   ⚙️ `git submodule add https://github.com/example/library.git`
 
@@ -136,15 +136,15 @@
   ⚙️ `git checkout main`
 
 
-- Partial clone
+### Partial clone
   ⚙️ `git clone --filter=blob:none  https://github.com/TechCorp/monorepo.git`
 
 
 
-- Filter-branch
+### Filter-branch
   ⚙️ `git filter-branch --tree-filter 'rm -f passwords.txt' HEAD`
   ⚙️ `git filter-branch --tree-filter 'rm -f sensitive_file.txt' HEAD`
 
 
-- Rerere
+### Rerere
   ⚙️ `git config --global rerere.enabled true`
