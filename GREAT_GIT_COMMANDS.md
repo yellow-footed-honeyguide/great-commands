@@ -117,26 +117,16 @@
   https://android.googlesource.com/
   ⚙️ `git submodule add https://github.com/example/library.git`
 
-- Sparse-checkout
-  TechCorp/
-
+TechCorp/
 ├── backend/
 │   ├── api/
-
 │   ├── services/
-
 │   └── database/
-
 ├── frontend/
-
 │   ├── web/
-
 │   └── mobile/
-
 └── docs/
-
     ├── api-docs/
-
     └── user-guides/
 
   ⚙️ `git clone --no-checkout https://github.com/TechCorp/monorepo.git`
