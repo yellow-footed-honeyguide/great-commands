@@ -108,3 +108,44 @@
 ⚙️ `git bisect log`
 - Show the log of the bisect session
 - Useful for reviewing your bisect steps
+
+## Large projects
+- Maintenance
+  ⚙️ `git maintenance run --auto`
+
+- Submodule
+  https://android.googlesource.com/
+  ⚙️ `git submodule add https://github.com/example/library.git`
+
+- Sparse-checkout
+  TechCorp/
+├── backend/
+│   ├── api/
+│   ├── services/
+│   └── database/
+├── frontend/
+│   ├── web/
+│   └── mobile/
+└── docs/
+    ├── api-docs/
+    └── user-guides/
+
+  ⚙️ `git clone --no-checkout https://github.com/TechCorp/monorepo.git`
+  ⚙️ `cd monorepo`
+  ⚙️ `git sparse-checkout init --cone`
+  ⚙️ `git sparse-checkout set frontend`
+  ⚙️ `git checkout main`
+
+
+- Partial clone
+  ⚙️ `git clone --filter=blob:none  https://github.com/TechCorp/monorepo.git`
+
+
+
+- Filter-branch
+  ⚙️ `git filter-branch --tree-filter 'rm -f passwords.txt' HEAD`
+  ⚙️ `git filter-branch --tree-filter 'rm -f sensitive_file.txt' HEAD`
+
+
+- Rerere
+  ⚙️ `git config --global rerere.enabled true`
