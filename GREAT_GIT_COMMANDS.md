@@ -114,7 +114,7 @@
   ⚙️ `git maintenance run --auto`
 
 ### Submodule
-  https://android.googlesource.com/
+  https://android.googlesource.com/<br>
   ⚙️ `git submodule add https://github.com/example/library.git`
 
 📁 TechCorp<br>
