@@ -84,5 +84,27 @@
 - Allows you to use `git l` instead of typing the full command every time.
 
 
+## Bisect
+⚙️ `git bisect start`
+- Begin a bisect session to find a buggy commit
+- Helps narrow down when a bug was introduced
 
+⚙️ `git bisect bad 3tww`
+- Mark the current or specified commit as "bad"
+- Indicates the bug exists in this commit
 
+⚙️ `git bisect good 28dq`
+- Mark the current or specified commit as "good"
+- Indicates the bug doesn't exist in this commit
+
+⚙️ `git bisect reset`
+- End the bisect session and return to the original HEAD
+- Useful when you've found the buggy commit or want to abort
+
+⚙️ `git bisect visualize`
+- Show the remaining suspects in gitk
+- Helps visualize the bisect process
+
+⚙️ `git bisect log`
+- Show the log of the bisect session
+- Useful for reviewing your bisect steps
