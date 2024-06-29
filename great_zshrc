@@ -772,7 +772,3 @@ nookscompletion() {
     && return 0
 }
 compdef nookscompletion nooks
-
-
-
-
