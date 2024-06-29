@@ -181,23 +181,10 @@ alias vv='vim ~/.vimrc'
 alias vz='vim ~/.zshrc'
 alias vi3='vim /home/honeyguide/.i3/config'
 alias vx='vim ~/.Xresources'
-alias vw='sudo vim /etc/wpa_supplicant/wpa_supplicant.conf'
-alias vd='vim /home/honeyguide/Desktop/LISTS/derevya'
-alias vwpa='sudo vim /etc/wpa_supplicant/wpa_supplicant.conf'
 alias ii='i3-msg reload'
 alias xx='xrdb /home/honeyguide/.Xresources'
 alias zz='source ~/.zshrc'
-
 alias cp='cp -r'
-alias h='\cd /home/honeyguide/ && ls'
-alias d='\cd /home/honeyguide/Desktop; ls'
-alias dow="\cd /home/honeyguide/Downloads/ && ls|nl"
-alias pic="\cd /home/honeyguide/Pictures/ && ls|nl"
-alias lis='/home/honeyguide/Desktop/LISTS && ls'
-alias she='vim /home/honeyguide/Desktop/LISTS/shell_home_commands_home'
-alias pyt='\cd /home/honeyguide/Python_scripts/ && ls'
-alias arc="\cd /mnt/archive && ls"
-alias ath='\cd /home/honeyguide/Desktop/Athenaeum && ls'
 
 alias f='firefox &; disown;exit'
 alias pale='palemoon &; disown;exit'
