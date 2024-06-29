@@ -132,18 +132,6 @@ xset s off -dpms # never screen turn off
 alias ls='echo -e "\e[3m`pwd`\e[0m" && ls -A -F --group-directories-first --sort=extension'
 alias l='ls | nl'
 alias cal='ncal'
-
-alias s='nooks --save-current-dir'
-#alias s='echo `pwd` > ~/.i3/.current_dir.txt'
-function e() {
-   if [[ -n "$1" ]]; then
-       nooks "$1"
-   else
-       nooks
-   fi
-}
-#alias e='\cd `\cat ~/.i3/.current_dir.txt`; ls'
-
 alias n='\cd ../; ls;'
 #alias nn='\cd ../../; ls;'
 alias nn='\cd -; ls;'
@@ -562,53 +550,8 @@ compdef _rpinfo rpinfo
 #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 # => Small functions
 #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+# https://github.com/yellow-footed-honeyguide/unpak
 alias un='unpak'
-#function un {
-#     unzip *$@* 2> /dev/null || tar -xf *$@* || 7z x *$@* && ls 
-#}
-#function un() {
-#  local file="$1"
-#  
-#  if [[ -z "$file" ]]; then
-#    echo "Usage: un <file>"
-#    return 1
-#  fi
-#  
-#  case "$file" in
-#    *.deb)
-#      dpkg-deb -x $file "$(basename $file .deb)"
-#      ;;
-#    *.rpm)
-#      rpm2cpio "$file" | cpio -idmv
-#      ;;
-#    *.zip)
-#      unzip -o "$file"
-#      ;;
-#    *.xz)
-#      xz -d "$file"
-#      ;;
-#    *.gz)
-#      gunzip "$file"
-#      ;;
-#    *.tar|*.tar.gz|*.tgz|*.tar.bz2|*.tbz2|*.tar.xz|*.txz)
-#      tar -xf "$file"
-#      ;;
-#    *.7z)
-#      7z x "$file"
-#      ;;
-#    *)
-#      echo "Unsupported file format: $file"
-#      return 1
-#      ;;
-#  esac
-#  
-#  if [[ $? -eq 0 ]]; then
-#    ls
-#  else
-#    echo "Extraction failed for $file"
-#    return 1
-#  fi
-#}
 
 function mem {
    viddy "echo  'Private  +  Shared    =  RAM used    Program'; sudo ps_mem | tac | head -n -1"
@@ -793,20 +736,33 @@ function mprs {
 This is examle of multi-lines comments
 COMMENT
 
-# NEW
 
+
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+# => New Utilities
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+## mdflash
 alias md="mdflash"
 
+## nooks (fast command line navigation)
+# save dir with specific title. example: nooks -s desc
+alias s='nooks --save-current-dir'
 
+# return to dir with specific title. example: nooks desc
+function e() {
+   if [[ -n "$1" ]]; then
+       nooks "$1"
+   else
+       nooks
+   fi
+}
 
-# Function to extract tags from ~/.nooks file
+# Autocompletion function for nooks
 _nooks_tags() {
   local -a tags
   tags=($(awk '{print $1}' ~/.nooks))
   _describe 'tag' tags
 }
-
-# Autocompletion function for nooks
 nookscompletion() {
   local state
   local -a options
@@ -820,13 +776,11 @@ nookscompletion() {
     '-q[Quiet mode]'
     '--quiet[Quiet mode]'
   )
-
   _arguments -s -C \
     "$options[@]" \
     "*:: :_nooks_tags" \
     && return 0
 }
-
 compdef nookscompletion nooks
 
 
