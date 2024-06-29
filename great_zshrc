@@ -221,7 +221,6 @@ alias r='ranger ./'
 alias homeserv="curl ipinfo.io/ip; echo ''; hostname -I | cut -d' ' -f1; echo ''; python3 -m http.server 8095" # homeserv
 
 alias viber='/opt/viber/Viber &; disown;exit'
-alias my_prompts='vim /home/honeyguide/Desktop/Labour/prompt_engineering/my_variables.txt'
 
 alias feh_bg='feh --bg-scale /home/honeyguide/Pictures/Back/back0.png'
 
@@ -232,15 +231,6 @@ alias iotop='urxvt -bg "[80]#000000" -fg white -tr -sh 50 -e sudo iotop --only -
 alias qp='pwd | xclip -selection primary'
 
 alias lazydocker='urxvt -bg "[80]#000000" -fg white -tr -sh 20 -e lazydocker &; disown; exit'
-
-alias b='mpr /home/honeyguide/Desktop/Athenaeum/NKJV.mp3'
-
-alias lop='\cd /mnt/archive/audiobooks && ls && echo '' && mpr lopuhin_bibleyskie_istorii.mp3 && ls'
-
-alias nik='mpr /mnt/archive/audiobooks/diff_audio/nikolay2.mp3'
-
-alias c='\cd /home/honeyguide/Desktop/Labour && ls'
-alias c2='\cd /home/honeyguide/Desktop/Labour/podgotovka_k_dokladam && ls'
 
 
 
