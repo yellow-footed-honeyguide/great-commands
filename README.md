@@ -3,7 +3,7 @@
 Welcome to curated collection of command-line utilities and Git commands. 
 This repository provides tools to boost productivity, streamline workflows, and simplify command-line tasks.
 
-## Contents
+## List of Lists
 
 - [Great New CLI Utilities](#great-new-cli-utilities)
 - [Great Git Commands](#great-git-commands)
