@@ -49,6 +49,9 @@
 ⚙️ `git notes list`
 - List all notes in the repository
 
+⚙️ `git diff main:inf.c imrove_video_information:inf.c`
+- Show the difference of files content between braches
+
 ## Synchronization 
 ⚙️ `git reset --hard origin/main`
 - Resets your local `main` branch to match the remote `origin/main` branch.
