@@ -52,6 +52,13 @@
 ⚙️ `git diff main:inf.c imrove_video_information:inf.c`
 - Show the difference of files content between braches
 
+## Tag
+⚙️ `git tag -a v0.1.0 -m "Initial release version 0.1.0"`
+* Tag with annotation to the latest commit.
+
+⚙️ `git tag`
+* List of all tags
+
 ## Synchronization 
 ⚙️ `git reset --hard origin/main`
 - Resets your local `main` branch to match the remote `origin/main` branch.
