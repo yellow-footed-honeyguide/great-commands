@@ -2,7 +2,7 @@
 
 ## Undoing things
 ⚙️ `git switch -`
-- Switches to the previously checked-out branch.<br>
+- Switches to the previously checked-out branch.
 
 
 ⚙️ `git rebase -i --root`
