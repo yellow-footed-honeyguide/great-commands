@@ -4,6 +4,7 @@
 ⚙️ `git switch -`
 - Switches to the previously checked-out branch.
 
+
 ⚙️ `git rebase -i --root`
 - Starts an interactive rebase from the very first commit of the current branch.
 
