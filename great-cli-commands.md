@@ -1,5 +1,5 @@
 ⚙️ `tldr`
-- Gives you a quick, simple explanation of how to use a command. Like a cheat sheet for the terminal.
+Gives you a quick, simple explanation of how to use a command. Like a cheat sheet for the terminal.
 
 ⚙️ `sxiv`
 - Opens a simple program to view images. 
