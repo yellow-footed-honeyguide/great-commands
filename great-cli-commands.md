@@ -7,6 +7,9 @@
 ⚙️ `sudo iotop --processes  --only`
 - Shows which processes are using disk I/O. 
 
+⚙️ `diff -Nurs "$1" "$2" | diff-so-fancy`
+- Advanced diff output. 
+
 ⚙️ `parallel convert {} {.}.jpg ::: *.png`
 - Changes all PNG images to JPG format at the same time. 
 
