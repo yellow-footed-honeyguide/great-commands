@@ -10,15 +10,14 @@
 ⚙️ `parallel convert {} {.}.jpg ::: *.png`
 - Changes all PNG images to JPG format at the same time. 
 
-⚙️ `echo -e "\e[3mpwd\e[0m" && ls -A -F --group-directories-first --sort=extension --color=always`
-- Shows current folder and lists all files in a neat, colorful way. 
+⚙️ `sudo lsblk --output MODEL,TYPE,NAME,SIZE,MOUNTPOINT,FSTYPE`
+- Lists all your disk drives and partitions. 
 
 ⚙️ `wkhtmltopdf --enable-local-file-access MY_PRESENTATION.html MY_PRESENTATION.pdf`
 - Turns a web page (HTML) into a PDF file. 
 
-
-⚙️ `sudo lsblk --output MODEL,TYPE,NAME,SIZE,MOUNTPOINT,FSTYPE`
-- Lists all your disk drives and partitions. 
+⚙️ `echo -e "\e[3mpwd\e[0m" && ls -A -F --group-directories-first --sort=extension --color=always`
+- Shows current folder and lists all files in a neat, colorful way. 
 
 ⚙️ `viddy "echo  'Private  +  Shared    =  RAM used    Program'; sudo ps_mem | tac | head -n -1"`
 - Constantly updates to show which programs are using the most memory. 
