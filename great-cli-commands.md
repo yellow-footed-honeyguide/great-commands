@@ -1,4 +1,4 @@
-⚙️ `tldr`
+⚙️ `tldr`<br>
 Gives you a quick, simple explanation of how to use a command. Like a cheat sheet for the terminal.
 
 ⚙️ `sxiv`
