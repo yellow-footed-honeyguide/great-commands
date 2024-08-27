@@ -5,6 +5,7 @@ This repository provides tools to boost productivity, streamline workflows, and 
 
 ## List of Lists
 
+- [Great CLI Commands](https://github.com/yellow-footed-honeyguide/great-commands/blob/main/great-cli-commands.md)
 - [Great New CLI Utilities](https://github.com/yellow-footed-honeyguide/great-commands/blob/main/great-new-cli-utilities.md)
 - [Great Git Commands](https://github.com/yellow-footed-honeyguide/great-commands/blob/main/great-git-commands.md)
 - [Great Wayland Commands](https://github.com/yellow-footed-honeyguide/great-commands/blob/main/great-wayland-commands.md)
