@@ -23,6 +23,5 @@
 - Constantly updates to show which programs are using the most memory. 
 
 ⚙️ `viddy -n 1 -d "echo Temp; sensors 2> /dev/null | grep Core; echo ; echo Freq; cat /proc/cpuinfo | grep \"^[c]pu MHz\""`
-- Refreshes every second to show CPU temperature and speed. Good for checking if your CPU is overheating or slowing down.
-
+- Refreshes every second to show CPU temperature and speed. 
 
