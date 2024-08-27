@@ -22,6 +22,9 @@
 ⚙️ `echo -e "\e[3mpwd\e[0m" && ls -A -F --group-directories-first --sort=extension --color=always`
 - Shows current folder and lists all files in a neat, colorful way. 
 
+⚙️ `curl ipinfo.io/ip; echo \; hostname -I | cut -d\ \ -f1; echo \; python3 -m http.server 8095`
+- Shows which processes are using disk I/O.
+
 ⚙️ `viddy "echo  'Private  +  Shared    =  RAM used    Program'; sudo ps_mem | tac | head -n -1"`
 - Constantly updates to show which programs are using the most memory. 
 
