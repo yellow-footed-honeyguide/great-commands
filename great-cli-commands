@@ -1,26 +1,27 @@
-# Show top I/O hogging processes
-sudo iotop --processes  --only
+⚙️ `sudo iotop --processes  --only`
+- Shows which processes are using disk I/O. 
 
-# Open image viewer (Simple X Image Viewer)
-sxiv
+⚙️ `sxiv`
+- Opens a simple program to view images. 
 
-# Convert all PNG images to JPG in parallel
-parallel convert {} {.}.jpg ::: *.png
+⚙️ `parallel convert {} {.}.jpg ::: *.png`
+- Changes all PNG images to JPG format at the same time. 
 
-# Show current directory with fancy formatting
-echo -e "\e[3mpwd\e[0m" && ls -A -F --group-directories-first --sort=extension --color=always
+⚙️ `echo -e "\e[3mpwd\e[0m" && ls -A -F --group-directories-first --sort=extension --color=always`
+- Shows current folder and lists all files in a neat, colorful way. 
 
-# Convert HTML to PDF, allowing local file access
-wkhtmltopdf --enable-local-file-access MY_PRESENTATION.html MY_PRESENTATION.pdf
+⚙️ `wkhtmltopdf --enable-local-file-access MY_PRESENTATION.html MY_PRESENTATION.pdf`
+- Turns a web page (HTML) into a PDF file. 
 
-# Display detailed info about disk devices
-sudo lsblk --output MODEL,TYPE,NAME,SIZE,MOUNTPOINT,FSTYPE
 
-# Show memory usage of processes, updated live
-viddy "echo  'Private  +  Shared    =  RAM used    Program'; sudo ps_mem | tac | head -n -1"
+⚙️ `sudo lsblk --output MODEL,TYPE,NAME,SIZE,MOUNTPOINT,FSTYPE`
+- Lists all your disk drives and partitions. 
 
-# Display CPU temperature and frequency, updated every second
-viddy -n 1 -d "echo Temp; sensors 2> /dev/null | grep Core; echo ; echo Freq; cat /proc/cpuinfo | grep \"^[c]pu MHz\""
+⚙️ `viddy "echo  'Private  +  Shared    =  RAM used    Program'; sudo ps_mem | tac | head -n -1"`
+- Constantly updates to show which programs are using the most memory. 
 
-# Show simplified man pages for commands
-tldr
+⚙️ `viddy -n 1 -d "echo Temp; sensors 2> /dev/null | grep Core; echo ; echo Freq; cat /proc/cpuinfo | grep \"^[c]pu MHz\""`
+- Refreshes every second to show CPU temperature and speed. Good for checking if your CPU is overheating or slowing down.
+
+⚙️ `tldr`
+- Gives you a quick, simple explanation of how to use a command. Like a cheat sheet for the terminal.
