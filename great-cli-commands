@@ -1,0 +1,26 @@
+# Show top I/O hogging processes
+sudo iotop --processes  --only
+
+# Open image viewer (Simple X Image Viewer)
+sxiv
+
+# Convert all PNG images to JPG in parallel
+parallel convert {} {.}.jpg ::: *.png
+
+# Show current directory with fancy formatting
+echo -e "\e[3mpwd\e[0m" && ls -A -F --group-directories-first --sort=extension --color=always
+
+# Convert HTML to PDF, allowing local file access
+wkhtmltopdf --enable-local-file-access MY_PRESENTATION.html MY_PRESENTATION.pdf
+
+# Display detailed info about disk devices
+sudo lsblk --output MODEL,TYPE,NAME,SIZE,MOUNTPOINT,FSTYPE
+
+# Show memory usage of processes, updated live
+viddy "echo  'Private  +  Shared    =  RAM used    Program'; sudo ps_mem | tac | head -n -1"
+
+# Display CPU temperature and frequency, updated every second
+viddy -n 1 -d "echo Temp; sensors 2> /dev/null | grep Core; echo ; echo Freq; cat /proc/cpuinfo | grep \"^[c]pu MHz\""
+
+# Show simplified man pages for commands
+tldr
