@@ -19,8 +19,8 @@
 ⚙️ `wkhtmltopdf --enable-local-file-access MY_PRESENTATION.html MY_PRESENTATION.pdf`
 - Turns a web page (HTML) into a PDF file. 
 
-⚙️ `echo -e "\e[3mpwd\e[0m" && ls -A -F --group-directories-first --sort=extension --color=always`
-- Shows current folder and lists all files in a neat, colorful way. 
+⚙️ ls -A -F --group-directories-first --sort=extension --color=always
+- Show list of all files in a neat, colorful way. 
 
 ⚙️ `curl ipinfo.io/ip; echo \; hostname -I | cut -d\ \ -f1; echo \; python3 -m http.server 8095`
 - Shows which processes are using disk I/O.
