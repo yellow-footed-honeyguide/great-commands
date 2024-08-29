@@ -19,7 +19,7 @@
 ⚙️ `wkhtmltopdf --enable-local-file-access MY_PRESENTATION.html MY_PRESENTATION.pdf`
 - Turns a web page (HTML) into a PDF file. 
 
-⚙️ ls -A -F --group-directories-first --sort=extension --color=always
+⚙️ `ls -A -F --group-directories-first --sort=extension --color=always`
 - Show list of all files in a neat, colorful way. 
 
 ⚙️ `curl ipinfo.io/ip; echo \; hostname -I | cut -d\ \ -f1; echo \; python3 -m http.server 8095`
