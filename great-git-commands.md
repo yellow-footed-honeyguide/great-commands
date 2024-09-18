@@ -53,11 +53,15 @@
 - Show the difference of files content between braches
 
 ## Tag
+⚙️ `git tag`
+* List of all tags
+
 ⚙️ `git tag -a v0.1.0 -m "Initial release version 0.1.0"`
 * Tag with annotation to the latest commit.
 
-⚙️ `git tag`
-* List of all tags
+⚙️ `git push origin tag v1.4.2`
+* Add tag to remote repo
+
 
 ## Synchronization 
 ⚙️ `git reset --hard origin/main`
