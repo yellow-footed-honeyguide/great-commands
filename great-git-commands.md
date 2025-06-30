@@ -67,7 +67,7 @@
 ⚙️ `git tag -n`  
 * List all tags with their messages (first line)
 
-⚙️ git tag v0.12.2 
+⚙️ `git tag v0.12.2`
 * Tag without annotation to the latest commit.
 
 ⚙️ `git tag -a v0.1.0 -m "Initial release version 0.1.0"`
