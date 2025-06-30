@@ -64,11 +64,23 @@
 ⚙️ `git tag`
 * List of all tags
 
+⚙️ `git tag -n`  
+* List all tags with their messages (first line)
+
+⚙️ git tag v0.12.2 
+* Tag without annotation to the latest commit.
+
 ⚙️ `git tag -a v0.1.0 -m "Initial release version 0.1.0"`
 * Tag with annotation to the latest commit.
 
-⚙️ `git push origin tag v1.4.2`
-* Add tag to remote repo
+⚙️ `git push origin v0.12.2`  
+* Push specific tag to remote
+
+⚙️ `git tag -d v0.12.2`  
+* Delete local tag
+
+⚙️ `git push origin --delete v0.12.2`  
+* Delete remote tag
 
 
 ## Synchronization 
