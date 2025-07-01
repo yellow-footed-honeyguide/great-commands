@@ -82,6 +82,9 @@
 ⚙️ `git push origin --delete v0.12.2`  
 * Delete remote tag
 
+## Hooks
+⚙️ `git commit -m "Ваше сообщение" --no-verify`
+- Ignore git hooks
 
 ## Synchronization 
 ⚙️ `git reset --hard origin/main`
