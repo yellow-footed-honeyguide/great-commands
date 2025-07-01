@@ -83,7 +83,7 @@
 * Delete remote tag
 
 ## Hooks
-⚙️ `git commit -m "Ваше сообщение" --no-verify`
+⚙️ `git commit -m "Your Message" --no-verify`
 - Ignore git hooks
 
 ## Synchronization 
