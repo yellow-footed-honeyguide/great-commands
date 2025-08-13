@@ -97,6 +97,9 @@
 ⚙️ `git switch -c perf/optimize-directory-switching`
 - Creates a new branch named `perf/optimize-directory-switching` and switches to it.
 
+⚙️ `git checkout -b my-new-feature b950230e123825eec861d1af376cd8aa28f84260`
+- Create branch from specific commit
+
 ⚙️ `git worktree add <path> <branch>`
 - Adds a new worktree at the specified path and checks out the specified branch. 
 
